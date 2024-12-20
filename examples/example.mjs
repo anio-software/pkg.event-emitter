@@ -12,13 +12,13 @@ const createEventEmitter = createEventEmitterFactory(
 )
 
 const {on, removeEventListener, _emitEvent} = createEventEmitter([
-	"d"
+	"event1"
 ])
 
-on("d", (e) => {
+on("event1", (e) => {
 	console.log(e)
 })
 
-_emitEvent("d", {})
+_emitEvent("event1", {})
 
 removeEventListener(0)
