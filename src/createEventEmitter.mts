@@ -1,30 +1,32 @@
 import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
-import type {_EventsToMap} from "#~src/_EventsToMap.d.mts"
+import type {_EventsToObject} from "#~src/_EventsToObject.d.mts"
+import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
+import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 
-type EventEmitter<PossibleEvents extends {type: string}> = {
-	on: <E extends keyof _EventsToMap<PossibleEvents>>(
+type EventEmitter<PossibleEvents extends {type: string}[]> = {
+	on: <E extends _EventsToNameUnion<PossibleEvents>>(
 		eventName: E,
-		listener: (data: _EventsToMap<PossibleEvents>[E]) => undefined
+		listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined
 	) => number
 
 	removeEventListener: (eventHandlerId: number) => undefined
 
-	_emitEvent: <E extends keyof _EventsToMap<PossibleEvents>>(
+	_emitEvent: <E extends _EventsToNameUnion<PossibleEvents>>(
 		eventName: E,
-		eventData: Omit<_EventsToMap<PossibleEvents>[E], "type">
+		eventData: Omit<_EventsToObject<PossibleEvents>[E], "type">
 	) => undefined
 }
 
-type Handler<PossibleEvents extends {type: string}> = {
-	type: keyof _EventsToMap<PossibleEvents>
+type Handler<PossibleEvents extends {type: string}[]> = {
+	type: _EventsToNameUnion<PossibleEvents>
 	handler: (eventData: any) => undefined
 }
 
 export function implementation<
-	PossibleEvents extends {type: string}
+	PossibleEvents extends {type: string}[]
 >(
 	wrapped_context: RuntimeWrappedContextInstance,
-	eventNames: (keyof _EventsToMap<PossibleEvents>)[]
+	eventNames: _EventsToNameTuple<PossibleEvents>
 ) : EventEmitter<PossibleEvents> {
 	const context = useContext(wrapped_context, 0)
 
@@ -43,8 +45,8 @@ export function implementation<
 		)
 	}
 
-	function checkEventName(eventName: string) : boolean {
-		if (!eventNames.includes(eventName)) {
+	function checkEventName(eventName: _EventsToNameUnion<PossibleEvents>) : boolean {
+		if (!(eventNames as any[]).includes(eventName)) {
 			context.log.error(
 				`invalid event name '${eventName.toString()}'.`
 			)
@@ -55,11 +57,11 @@ export function implementation<
 		return true
 	}
 
-	const on = <E extends keyof _EventsToMap<PossibleEvents>>(
+	const on = <E extends _EventsToNameUnion<PossibleEvents>>(
 		eventName: E,
-		listener: (data: _EventsToMap<PossibleEvents>[E]) => undefined
+		listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined
 	) : number => {
-		if (!checkEventName(eventName as string)) return -1
+		if (!checkEventName(eventName)) return -1
 
 		++currentHandlerId
 
@@ -95,11 +97,11 @@ export function implementation<
 		)
 	}
 
-	const _emitEvent = <E extends keyof _EventsToMap<PossibleEvents>>(
+	const _emitEvent = <E extends _EventsToNameUnion<PossibleEvents>>(
 		eventName: E,
-		eventData: Omit<_EventsToMap<PossibleEvents>[E], "type">
+		eventData: Omit<_EventsToObject<PossibleEvents>[E], "type">
 	) : undefined => {
-		if (!checkEventName(eventName as string)) return
+		if (!checkEventName(eventName)) return
 
 		let handlersToCall : ((data: any) => undefined)[] = []
 

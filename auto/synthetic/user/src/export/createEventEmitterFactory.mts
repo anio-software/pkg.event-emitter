@@ -3,19 +3,21 @@ import type {RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
 import {getProject} from "@fourtune/realm-js/v0/project"
 
 // vvv--- types needed for implementation
-import type {_EventsToMap} from "#~src/_EventsToMap.d.mts"
+import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
+import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
+import type {_EventsToObject} from "#~src/_EventsToObject.d.mts"
 /* couldn't find a user defined type named 'E' at the top level */
 type EventEmitter<PossibleEvents extends {
 	type: string;
-}> = {
-	on: <E extends keyof _EventsToMap<PossibleEvents>>(eventName: E, listener: (data: _EventsToMap<PossibleEvents>[E]) => undefined) => number;
+}[]> = {
+	on: <E extends _EventsToNameUnion<PossibleEvents>>(eventName: E, listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined) => number;
 	removeEventListener: (eventHandlerId: number) => undefined;
-	_emitEvent: <E extends keyof _EventsToMap<PossibleEvents>>(eventName: E, eventData: Omit<_EventsToMap<PossibleEvents>[E], "type">) => undefined;
+	_emitEvent: <E extends _EventsToNameUnion<PossibleEvents>>(eventName: E, eventData: Omit<_EventsToObject<PossibleEvents>[E], "type">) => undefined;
 }
 type Handler<PossibleEvents extends {
 	type: string;
-}> = {
-	type: keyof _EventsToMap<PossibleEvents>;
+}[]> = {
+	type: _EventsToNameUnion<PossibleEvents>;
 	handler: (eventData: any) => undefined;
 }
 /* couldn't find a user defined type named 'Map' at the top level */
@@ -23,8 +25,8 @@ type Handler<PossibleEvents extends {
 /* couldn't find a user defined type named 'PossibleEvents' at the top level */
 // ^^^--- types needed for implementation
 
-declare function createEventEmitter<PossibleEvents extends {type: string}>(
-	eventNames: (keyof _EventsToMap<PossibleEvents>)[]
+declare function createEventEmitter<PossibleEvents extends {type: string}[]>(
+	eventNames: _EventsToNameTuple<PossibleEvents>
 ) : EventEmitter<PossibleEvents>
 
 /**
@@ -51,7 +53,7 @@ export function createEventEmitterFactory(context: RuntimeWrappedContextInstance
 		}
 	}
 
-	return function createEventEmitter<PossibleEvents extends {type: string}>(eventNames: (keyof _EventsToMap<PossibleEvents>)[]) : EventEmitter<PossibleEvents> {
+	return function createEventEmitter<PossibleEvents extends {type: string}[]>(eventNames: _EventsToNameTuple<PossibleEvents>) : EventEmitter<PossibleEvents> {
 		return implementation(local_context, eventNames)
 	}
 }

@@ -1,9 +1,10 @@
-import type {_EventsToMap} from "../_EventsToMap.d.mts"
+import type {_EventsToObject} from "../_EventsToObject.d.mts"
+import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 
-export type EventEmitter<PossibleEvents extends {type :string}> = {
-	on: <E extends keyof _EventsToMap<PossibleEvents>>(
+export type EventEmitter<PossibleEvents extends {type :string}[]> = {
+	on: <E extends _EventsToNameUnion<PossibleEvents>>(
 		eventName: E,
-		listener: (data: _EventsToMap<PossibleEvents>[E]) => undefined
+		listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined
 	) => number
 
 	removeEventListener: (eventHandlerId: number) => undefined
