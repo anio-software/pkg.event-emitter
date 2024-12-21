@@ -12,8 +12,9 @@ type EventEmitter<PossibleEvents extends {
 }[]> = {
 	on: <E extends _EventsToNameUnion<PossibleEvents>>(eventName: E, listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined) => number;
 	removeEventListener: (eventHandlerId: number) => undefined;
-	_emitEvent: <E extends _EventsToNameUnion<PossibleEvents>>(eventName: E, eventData: Omit<_EventsToObject<PossibleEvents>[E], "type">) => undefined;
+	_emitEvent: EventListenerEmitEventType<PossibleEvents>;
 }
+import type {EventListenerEmitEventType} from "#~src/export/EventListenerEmitEventType.d.mts"
 type Handler<PossibleEvents extends {
 	type: string;
 }[]> = {
