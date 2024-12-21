@@ -18,7 +18,8 @@ type MyCustomEvent2 = {
 	someOtherPayload: number[]
 }
 
-export type MyEvents = [MyCustomEvent1, MyCustomEvent2]
+export type MyEvents = [MyCustomEvent1, MyCustomEvent2] // <-- must be a tuple
+
 export type MyObject = EventEmitter<MyEvents> & {
 	// type definition of MyObject here
 }
@@ -34,7 +35,7 @@ import {createEventEmitter} from "@aniojs/event-emitter"
 
 export function createMyObject(): MyObject {
 	const {on, removeEventListener, _emitEvent} = createEventEmitter<MyEvents>([
-		"event1", "event2"
+		"event1", "event2" // <-- must appear in the same order as in the MyEvents tuple
 	])
 
 	let obj: MyObject = {
