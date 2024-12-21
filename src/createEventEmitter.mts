@@ -2,7 +2,7 @@ import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js
 import type {_EventsToObject} from "#~src/_EventsToObject.d.mts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
-import type {EventListenerEmitEventType} from "#~src/export/EventListenerEmitEventType.d.mts"
+import type {_EmitEventType} from "#~src/export/_EmitEventType.d.mts"
 
 type EventEmitter<PossibleEvents extends {type: string}[]> = {
 	on: <E extends _EventsToNameUnion<PossibleEvents>>(
@@ -12,7 +12,7 @@ type EventEmitter<PossibleEvents extends {type: string}[]> = {
 
 	removeEventListener: (eventHandlerId: number) => undefined
 
-	_emitEvent: EventListenerEmitEventType<PossibleEvents>
+	_emitEvent: _EmitEventType<PossibleEvents>
 }
 
 type Handler<PossibleEvents extends {type: string}[]> = {

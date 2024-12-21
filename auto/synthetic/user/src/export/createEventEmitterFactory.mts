@@ -3,6 +3,7 @@ import type {RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
 import {getProject} from "@fourtune/realm-js/v0/project"
 
 // vvv--- types needed for implementation
+import type {_EmitEventType} from "#~src/export/_EmitEventType.d.mts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 import type {_EventsToObject} from "#~src/_EventsToObject.d.mts"
@@ -12,9 +13,8 @@ type EventEmitter<PossibleEvents extends {
 }[]> = {
 	on: <E extends _EventsToNameUnion<PossibleEvents>>(eventName: E, listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined) => number;
 	removeEventListener: (eventHandlerId: number) => undefined;
-	_emitEvent: EventListenerEmitEventType<PossibleEvents>;
+	_emitEvent: _EmitEventType<PossibleEvents>;
 }
-import type {EventListenerEmitEventType} from "#~src/export/EventListenerEmitEventType.d.mts"
 type Handler<PossibleEvents extends {
 	type: string;
 }[]> = {
