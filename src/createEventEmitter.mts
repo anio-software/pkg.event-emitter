@@ -117,11 +117,9 @@ export function implementation<
 
 		const data = {...eventData, type: eventName}
 
-		setTimeout(() => {
-			for (const handler of handlersToCall) {
-				handler(data)
-			}
-		}, 0)
+		for (const handler of handlersToCall) {
+			handler(data)
+		}
 	}
 
 	return {on, removeEventListener, _emitEvent}
