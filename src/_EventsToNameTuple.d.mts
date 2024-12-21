@@ -7,9 +7,9 @@
  * 
  * ["a", "b"]
  */
-export type _EventsToName<PossibleEvents extends { type: string }[]> = 
+export type _EventsToNameTuple<PossibleEvents extends { type: string }[]> = 
 	PossibleEvents extends [infer First, ...infer Rest] ? (
 		First extends { type: infer U } ? (
-			Rest extends {type:string}[] ? [U, ..._EventsToName<Rest>] : never
+			Rest extends {type:string}[] ? [U, ..._EventsToNameTuple<Rest>] : never
 		) : never
 	): []
