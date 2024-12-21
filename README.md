@@ -18,7 +18,7 @@ type MyCustomEvent2 = {
 	someOtherPayload: number[]
 }
 
-export type MyEvents = MyCustomEvent1 | MyCustomEvent2
+export type MyEvents = [MyCustomEvent1, MyCustomEvent2]
 export type MyObject = EventEmitter<MyEvents> & {
 	// type definition of MyObject here
 }
