@@ -3,12 +3,10 @@ import type {_EventsToObject} from "#~src/_EventsToObject.d.mts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 import type {_EmitEventType} from "#~src/export/_EmitEventType.d.mts"
+import type {OnType} from "#~src/export/OnType.d.mts"
 
 type EventEmitter<PossibleEvents extends {type: string}[]> = {
-	on: <E extends _EventsToNameUnion<PossibleEvents>>(
-		eventName: E,
-		listener: (data: _EventsToObject<PossibleEvents>[E]) => undefined
-	) => number
+	on: OnType<PossibleEvents>
 
 	removeEventListener: (eventHandlerId: number) => undefined
 
