@@ -9,7 +9,7 @@ type EventEmitter<PossibleEvents extends {
 	type: string;
 }[]> = {
 	on: OnType<PossibleEvents>;
-	removeEventListener: (eventHandlerId: number) => undefined;
+	removeEventListener: RemoveEventListenerType<PossibleEvents>;
 	_emitEvent: _EmitEventType<PossibleEvents>;
 }
 type Handler<PossibleEvents extends {
@@ -22,6 +22,7 @@ type Handler<PossibleEvents extends {
 /* couldn't find a user defined type named 'Omit' at the top level */
 import type {OnType} from "#~src/export/OnType.d.mts"
 /* couldn't find a user defined type named 'PossibleEvents' at the top level */
+import type {RemoveEventListenerType} from "#~src/export/RemoveEventListenerType.d.mts"
 // ^^^--- types needed for implementation
 
 import {createEventEmitterFactory as factory} from "#~synthetic/user/export/createEventEmitterFactory.mts"

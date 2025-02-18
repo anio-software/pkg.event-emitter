@@ -1,9 +1,10 @@
 import type {OnType} from "./OnType.d.mts"
+import type {RemoveEventListenerType} from "./RemoveEventListenerType.d.mts"
 
 export type EventEmitter<PossibleEvents extends {type :string}[]> = {
 	on: OnType<PossibleEvents>
 
-	removeEventListener: (eventHandlerId: number) => undefined
+	removeEventListener: RemoveEventListenerType<PossibleEvents>
 
 	//
 	// this property is only here to be able to
