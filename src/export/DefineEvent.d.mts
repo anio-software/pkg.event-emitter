@@ -1,6 +1,6 @@
 export type DefineEvent<
 	Name extends string,
-	Data extends {} = {}
+	Data extends object = {}
 > = {
 	type: Name
 } & Data
