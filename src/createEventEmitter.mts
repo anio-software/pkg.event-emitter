@@ -10,6 +10,11 @@ type EventEmitter<Events extends Event[]> = EventEmitterPublic<Events> & {
 	_emitEvent: PropertyTypeOf<"_emitEvent", Events>
 }
 
+type EventHandler = (
+	data: object,
+	event: Event
+) => undefined
+
 export function implementation<Events extends Event[]>(
 	wrapped_context: RuntimeWrappedContextInstance,
 	eventNames: _EventsToNameTuple<Events>
@@ -111,19 +116,12 @@ export function implementation<Events extends Event[]>(
 		return true
 	}
 
-	function getEventHandlers(eventName: string): (
-		<EventData extends object>(
-			data: EventData,
-			event: Event & {
-				eventUserData: NoInfer<EventData>
-			}
-		) => undefined
-	)[] {
-		const ret: any[] = []
+	function getEventHandlers(eventName: string): EventHandler[] {
+		const ret: EventHandler[] = []
 
 		for (const [_, value] of handlers.entries()) {
 			if (value.associatedEventName === eventName) {
-				ret.push(value.handler)
+				ret.push(value.handler as EventHandler)
 			}
 		}
 

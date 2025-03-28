@@ -7,10 +7,10 @@ type EventEmitter<Events extends Event[]> = EventEmitterPublic<Events> & {
 	_emitEvent: PropertyTypeOf<"_emitEvent", Events>;
 }
 import type {EventEmitter as EventEmitterPublic} from "#~src/export/EventEmitter.d.mts"
+type EventHandler = (data: object, event: Event) => undefined
 import type {EventListener} from "#~src/export/EventListener.d.mts"
 /* couldn't find a user defined type named 'Events' at the top level */
 /* couldn't find a user defined type named 'Map' at the top level */
-/* couldn't find a user defined type named 'NoInfer' at the top level */
 import type {PropertyTypeOf} from "#~src/export/PropertyTypeOf.d.mts"
 // ^^^--- types needed for implementation
 
