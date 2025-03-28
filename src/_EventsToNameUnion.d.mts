@@ -1,10 +1,12 @@
 /**
- * Converts a typed array like:
+ * Converts a type array like:
  * 
- * [{type: "a"}, {type: "b"}]
+ * [{eventName: "a", ...}, {eventName: "b", ...}]
  * 
- * Into a union:
+ * Into a type union like:
  * 
  * "a" | "b"
  */
-export type _EventsToNameUnion<PossibleEvents extends { type: string }[]> = PossibleEvents[number]["type"]
+import type {Event} from "#~src/export/Event.d.mts"
+
+export type _EventsToNameUnion<Events extends Event[]> = Events[number]["eventName"]
