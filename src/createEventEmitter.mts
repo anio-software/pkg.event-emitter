@@ -4,6 +4,7 @@ import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 import type {EventEmitter as EventEmitterPublic} from "#~src/export/EventEmitter.d.mts"
 import type {PropertyTypeOf} from "#~src/export/PropertyTypeOf.d.mts"
+import type {EventListener} from "#~src/export/EventListener.d.mts"
 
 type EventEmitter<Events extends Event[]> = EventEmitterPublic<Events> & {
 	_emitEvent: PropertyTypeOf<"_emitEvent", Events>
@@ -32,7 +33,23 @@ export function implementation<Events extends Event[]>(
 
 	return {
 		on(eventName, handler) {
-			return {} as any
+			if (!checkEventName(eventName)) {
+				return -1 as EventListener
+			}
+
+			++currentHandlerId
+
+			handlers.set(currentHandlerId, {
+				type: eventName,
+				handler
+			})
+
+			context.log.silly(
+				`add event listener for '${eventName.toString()}' that has the id '${currentHandlerId}'.`,
+				`number of installed event handlers is now '${handlers.size}'.`
+			)
+
+			return currentHandlerId as EventListener
 		},
 
 		removeEventListener(handler) {
