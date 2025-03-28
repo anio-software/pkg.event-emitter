@@ -16,7 +16,10 @@ export function implementation<Events extends Event[]>(
 ) : EventEmitter<Events> {
 	const context = useContext(wrapped_context, 0)
 
-	const handlers : Map<number, unknown> = new Map()
+	const handlers : Map<number, {
+		associatedEventName: string
+		handler: unknown
+	}> = new Map()
 	let currentHandlerId = -1
 
 	const eventNamesQuoted = eventNames.map(x => `'${x.toString()}'`)
@@ -40,7 +43,7 @@ export function implementation<Events extends Event[]>(
 			++currentHandlerId
 
 			handlers.set(currentHandlerId, {
-				type: eventName,
+				associatedEventName: eventName,
 				handler
 			})
 
@@ -53,7 +56,6 @@ export function implementation<Events extends Event[]>(
 		},
 
 		removeEventListener(handler) {
-
 		},
 
 		_emitEvent(eventName, data, additionalData) {
