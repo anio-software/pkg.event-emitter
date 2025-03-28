@@ -17,7 +17,7 @@
   "type": "module",
   "devDependencies": {
     "@fourtune/core": "^0.1101.0",
-    "@fourtune/realm-js": "^0.31010.0",
+    "@fourtune/realm-js": "^1.0.5",
     "fourtune": "^0.30000.1"
   },
   "peerDependencies": {
