@@ -3,7 +3,6 @@ import type {Event} from "#~src/export/Event.d.mts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 import type {EventEmitter} from "#~src/export/EventEmitter.d.mts"
-import type {PropertyTypeOf} from "#~src/export/PropertyTypeOf.d.mts"
 import type {EventListener} from "#~src/export/EventListener.d.mts"
 
 type EventHandler = (
