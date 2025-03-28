@@ -1,19 +1,19 @@
-import type {OnType} from "./OnType.d.mts"
-import type {RemoveEventListenerType} from "./RemoveEventListenerType.d.mts"
+import type {Event} from "./Event.d.mts"
+import type {PropertyTypeOf} from "./PropertyTypeOf.d.mts"
 
-export type EventEmitter<PossibleEvents extends {type :string}[]> = {
-	on: OnType<PossibleEvents>
+export type EventEmitter<Events extends Event[]> = {
+	on: PropertyTypeOf<"on", Events>
 
-	removeEventListener: RemoveEventListenerType<PossibleEvents>
+	removeEventListener: PropertyTypeOf<"removeEventListener", Events>
 
 	//
 	// this property is only here to be able to
-	// extract the type "PossibleEvents" out of a
+	// extract the type "Events" out of a
 	// compounded type.
 	// It is marked optional so the user never has to
 	// actually provide a value for this property.
 	// It is also marked readonly to signify that this value
 	// should never be set.
 	//
-	readonly __ignoreThisPropertyAnioJSPossibleEvents?: PossibleEvents
+	readonly __ignoreThisPropertyAnioJSEvents?: Events
 }

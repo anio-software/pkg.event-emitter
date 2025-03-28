@@ -1,3 +1,3 @@
 export type ExtractEventsFromCompoundType<T> = T extends {
-	__ignoreThisPropertyAnioJSPossibleEvents?: infer X
+	__ignoreThisPropertyAnioJSEvents?: infer X
 } ? NonNullable<X> : never
