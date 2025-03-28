@@ -62,7 +62,7 @@ export function implementation<Events extends Event[]>(
 	}
 
 	function checkEventName(eventName: string) : boolean {
-		if ((eventNames as string[]).includes(eventName)) {
+		if (!(eventNames as string[]).includes(eventName)) {
 			context.log.error(
 				`invalid event name '${eventName.toString()}'.`
 			)
