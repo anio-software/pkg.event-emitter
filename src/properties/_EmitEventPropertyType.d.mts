@@ -10,4 +10,4 @@ export type _EmitEventPropertyType<Events extends Event[]> = <
 	additionalData?: {
 		source?: unknown
 	}
-) => number
+) => number|false

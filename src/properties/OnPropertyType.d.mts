@@ -11,4 +11,4 @@ export type OnPropertyType<Events extends Event[]> = <
 		data: _EventsToObject<Events>[EventName]["eventUserData"],
 		event: _EventsToObject<Events>[EventName]
 	) => undefined
-) => EventListener
+) => EventListener|false

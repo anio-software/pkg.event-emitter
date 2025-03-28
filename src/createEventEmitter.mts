@@ -25,7 +25,14 @@ export function implementation<Events extends Event[]>(
 		associatedEventName: string
 		handler: unknown
 	}> = new Map()
-	let currentHandlerId = -1
+
+	//
+	// starting a 0 makes this construct possible:
+	// const handler = emitter.on("event", () => {})
+	// if (handler) emitter.removeEventListener(handler)
+	//
+	// starting at -1 would result in if (handler) to return false
+	let currentHandlerId = 0
 
 	const eventNamesQuoted = eventNames.map(x => `'${x.toString()}'`)
 
@@ -42,7 +49,7 @@ export function implementation<Events extends Event[]>(
 	return {
 		on(eventName, handler) {
 			if (!checkEventName(eventName)) {
-				return -1 as EventListener
+				return false
 			}
 
 			++currentHandlerId
@@ -81,7 +88,7 @@ export function implementation<Events extends Event[]>(
 
 		_emitEvent(eventName, eventUserData, additionalData) {
 			if (!checkEventName(eventName)) {
-				return -1
+				return false
 			}
 
 			const handlersToCall = getEventHandlers(eventName)
