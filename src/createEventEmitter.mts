@@ -74,8 +74,28 @@ export function implementation<Events extends Event[]>(
 			)
 		},
 
-		_emitEvent(eventName, data, additionalData) {
-			return 0
+		_emitEvent(eventName, eventUserData, additionalData) {
+			if (!checkEventName(eventName)) {
+				return -1
+			}
+
+			const handlersToCall = getEventHandlers(eventName)
+
+			context.log.trace(
+				`dispatching '${eventName.toString()}' to ${handlersToCall.length} listeners.`
+			)
+
+			for (const handler of handlersToCall) {
+				handler(eventUserData, {
+					eventName,
+					eventUserData,
+					eventData: {
+						source: additionalData?.source
+					}
+				})
+			}
+
+			return handlersToCall.length
 		}
 	}
 
@@ -99,6 +119,14 @@ export function implementation<Events extends Event[]>(
 			}
 		) => undefined
 	)[] {
-		return []
+		const ret: any[] = []
+
+		for (const [_, value] of handlers.entries()) {
+			if (value.associatedEventName === eventName) {
+				ret.push(value.handler)
+			}
+		}
+
+		return ret
 	}
 }
