@@ -1,15 +1,17 @@
 /**
- * Converts a typed array like:
+ * Converts a type array like:
  * 
- * [{type: "a"}, {type: "b"}]
+ * [{eventName: "a", ...}, {eventName: "b", ...}]
  * 
- * Into a type array:
+ * Into a type array like:
  * 
  * ["a", "b"]
  */
-export type _EventsToNameTuple<PossibleEvents extends { type: string }[]> = 
-	PossibleEvents extends [infer First, ...infer Rest] ? (
-		First extends { type: infer U } ? (
-			Rest extends {type:string}[] ? [U, ..._EventsToNameTuple<Rest>] : never
+import type {Event} from "#~src/export/Event.d.mts"
+
+export type _EventsToNameTuple<Events extends Event[]> = 
+	Events extends [infer First, ...infer Rest] ? (
+		First extends {eventName: infer U} ? (
+			Rest extends Event[] ? [U, ..._EventsToNameTuple<Rest>] : never
 		) : never
 	): []
