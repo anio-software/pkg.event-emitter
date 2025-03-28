@@ -14,6 +14,21 @@ export function implementation<Events extends Event[]>(
 ) : EventEmitter<Events> {
 	const context = useContext(wrapped_context, 0)
 
+	const handlers : Map<number, unknown> = new Map()
+	let currentHandlerId = -1
+
+	const eventNamesQuoted = eventNames.map(x => `'${x.toString()}'`)
+
+	if (!eventNames.length) {
+		context.log.warn(
+			`initializing EventEmitter with empty event name array!`
+		)
+	} else {
+		context.log.silly(
+			`initializing event emitter with events ${eventNamesQuoted.join(", ")}`
+		)
+	}
+
 	return {
 		on(eventName, handler) {
 			return {} as any
