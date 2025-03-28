@@ -15,10 +15,10 @@ const {on, removeEventListener, _emitEvent} = createEventEmitter([
 	"event1"
 ])
 
-on("event1", (e) => {
+const listener = on("event1", (e) => {
 	console.log(e)
 })
 
 _emitEvent("event1", {})
 
-removeEventListener(0)
+if (listener) removeEventListener(listener)
