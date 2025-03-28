@@ -1,6 +1,7 @@
 import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
 import type {Event} from "#~src/export/Event.d.mts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.d.mts"
+import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
 import type {EventEmitter as EventEmitterPublic} from "#~src/export/EventEmitter.d.mts"
 import type {PropertyTypeOf} from "#~src/export/PropertyTypeOf.d.mts"
 
@@ -41,5 +42,16 @@ export function implementation<Events extends Event[]>(
 		_emitEvent(eventName, data, additionalData) {
 			return 0
 		}
+	}
+
+	function getEventHandlers(eventName: string): (
+		<EventData extends object>(
+			data: EventData,
+			event: Event & {
+				eventUserData: NoInfer<EventData>
+			}
+		) => undefined
+	)[] {
+		return []
 	}
 }
