@@ -55,7 +55,23 @@ export function implementation<Events extends Event[]>(
 			return currentHandlerId as EventListener
 		},
 
-		removeEventListener(handler) {
+		removeEventListener(eventHandlerId) {
+			if (!handlers.has(eventHandlerId)) {
+				context.log.error(
+					`don't have an event listener with id '${eventHandlerId}'.`
+				)
+
+				return
+			}
+
+			const handler = handlers.get(eventHandlerId)!
+
+			handlers.delete(eventHandlerId)
+
+			context.log.silly(
+				`removed event listener '${handler.associatedEventName.toString()}' that had the id '${eventHandlerId}'.`,
+				`number of installed event handlers is now '${handlers.size}'.`
+			)
 		},
 
 		_emitEvent(eventName, data, additionalData) {
