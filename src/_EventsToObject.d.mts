@@ -1,26 +1,33 @@
 /**
- * Converts a typed array like:
+ * Converts a type array like:
  * 
- * [{type: "a"}, {type: "b", prop: string}, {type: "c", anotherProp: string}]
+ * [{eventName: "a", ...}, {eventName: "b", ...}, {eventName: "c", ...}]
  * 
- * Into a type object:
+ * Into a type object like:
  * 
  * {
  *     "a": {
- *         "type": "a"
+ *         "eventName": "a"
+ *         ...
  *     },
  * 
  *     "b": {
- *         "type": "b"
- *         "prop": string
+ *         "eventName": "b"
+ *         ...
  *     },
  * 
  *     "c": {
- *         "type": "c"
- *         "anotherProp": string
+ *         "eventName": "c"
+ *         ...
  *     }
  * }
  */
-export type _EventsToObject<PossibleEvents extends {type: string}[]> = {
-	[K in PossibleEvents[number] as K["type"]]: K
+import type {Event} from "#~src/export/Event.d.mts"
+import type {_EventsToNameUnion} from "./_EventsToNameUnion.d.mts"
+import type {Unpacked} from "./Unpacked.d.mts"
+
+export type _EventsToObject<Events extends Event[]> = {
+	[EventName in _EventsToNameUnion<Events>]: Extract<Unpacked<Events>, {
+		eventName: EventName
+	}>
 }
