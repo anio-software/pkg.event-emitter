@@ -1,7 +1,7 @@
 import type {Event} from "./Event.d.mts"
 import type {PropertyTypeOf} from "./PropertyTypeOf.d.mts"
 
-export type EventEmitter<Events extends Event[]> = {
+type PublicInterface<Events extends Event[]> = {
 	on: PropertyTypeOf<"on", Events>
 
 	removeEventListener: PropertyTypeOf<"removeEventListener", Events>
@@ -17,3 +17,10 @@ export type EventEmitter<Events extends Event[]> = {
 	//
 	readonly __ignoreThisPropertyAnioJSEvents?: Events
 }
+
+export type EventEmitter<
+	Events extends Event[],
+	IncludeEmitEvent extends boolean = false
+> = IncludeEmitEvent extends true ? PublicInterface<Events> & {
+	_emitEvent: PropertyTypeOf<"_emitEvent", Events>
+} : PublicInterface<Events>
