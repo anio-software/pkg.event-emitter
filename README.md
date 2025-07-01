@@ -1,11 +1,11 @@
-# @aniojs/event-emitter
+# @anio-software/pkg.event-emitter
 
 Creates an event emitter.
 
 For the interface you would do something like this:
 
 ```ts
-import type {EventEmitter} from "@aniojs/event-emitter"
+import type {EventEmitter} from "@anio-software/pkg.event-emitter"
 
 type MyCustomEvent1 = {
 	type: "event1" // <-- this property is always required
@@ -31,7 +31,7 @@ And for the implementation:
 
 ```ts
 import type {MyObject, MyEvents} from "./interface.d.mts"
-import {createEventEmitter} from "@aniojs/event-emitter"
+import {createEventEmitter} from "@anio-software/pkg.event-emitter"
 
 export function createMyObject(): MyObject {
 	const {on, removeEventListener, _emitEvent} = createEventEmitter<MyEvents>([
