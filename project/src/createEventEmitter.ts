@@ -40,7 +40,7 @@ export function implementation<Events extends Event[]>(
 			`initializing EventEmitter with empty event name array!`
 		)
 	} else {
-		context.log.silly(
+		context.log.trace(
 			`initializing event emitter with events ${eventNamesQuoted.join(", ")}`
 		)
 	}
@@ -58,7 +58,7 @@ export function implementation<Events extends Event[]>(
 				handler
 			})
 
-			context.log.silly(
+			context.log.trace(
 				`add event listener for '${eventName.toString()}' that has the id '${currentHandlerId}'.`,
 				`number of installed event handlers is now '${handlers.size}'.`
 			)
@@ -79,7 +79,7 @@ export function implementation<Events extends Event[]>(
 
 			handlers.delete(eventHandlerId)
 
-			context.log.silly(
+			context.log.trace(
 				`removed event listener '${handler.associatedEventName.toString()}' that had the id '${eventHandlerId}'.`,
 				`number of installed event handlers is now '${handlers.size}'.`
 			)
