@@ -14,7 +14,7 @@ type EventHandler = (
 	event: Event
 ) => undefined
 
-export function implementation<Events extends Event[]>(
+export function __implementation<Events extends Event[]>(
 	contextOptions: EnkoreJSRuntimeContextOptions,
 	eventNames: _EventsToNameTuple<Events>
 ) : EventEmitter<Events, true> {
