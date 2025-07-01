@@ -1,4 +1,8 @@
-import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
+import {
+	type EnkoreJSRuntimeContextOptions,
+	createContext
+} from "@anio-software/enkore.js-runtime"
+
 import type {Event} from "#~export/Event.ts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.ts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.ts"
@@ -11,10 +15,10 @@ type EventHandler = (
 ) => undefined
 
 export function implementation<Events extends Event[]>(
-	wrapped_context: RuntimeWrappedContextInstance,
+	contextOptions: EnkoreJSRuntimeContextOptions,
 	eventNames: _EventsToNameTuple<Events>
 ) : EventEmitter<Events, true> {
-	const context = useContext(wrapped_context, 0)
+	const context = createContext(contextOptions, 0)
 
 	const handlers : Map<number, {
 		associatedEventName: string
