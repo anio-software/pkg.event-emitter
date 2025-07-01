@@ -1,7 +1,7 @@
-import type {Event} from "./Event.d.mts"
-import type {OnPropertyType} from "#~src/properties/OnPropertyType.d.mts"
-import type {_EmitEventPropertyType} from "#~src/properties/_EmitEventPropertyType.d.mts"
-import type {RemoveEventListenerPropertyType} from "#~src/properties/RemoveEventListenerPropertyType.d.mts"
+import type {Event} from "./Event.ts"
+import type {OnPropertyType} from "#~src/properties/OnPropertyType.ts"
+import type {_EmitEventPropertyType} from "#~src/properties/_EmitEventPropertyType.ts"
+import type {RemoveEventListenerPropertyType} from "#~src/properties/RemoveEventListenerPropertyType.ts"
 
 type Properties = "on"                  |
                   "_emitEvent"          |

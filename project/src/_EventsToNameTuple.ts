@@ -7,7 +7,7 @@
  * 
  * ["a", "b"]
  */
-import type {Event} from "#~src/export/Event.d.mts"
+import type {Event} from "#~src/export/Event.ts"
 
 export type _EventsToNameTuple<Events extends Event[]> = 
 	Events extends [infer First, ...infer Rest] ? (

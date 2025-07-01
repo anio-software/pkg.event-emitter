@@ -22,9 +22,9 @@
  *     }
  * }
  */
-import type {Event} from "#~src/export/Event.d.mts"
-import type {_EventsToNameUnion} from "./_EventsToNameUnion.d.mts"
-import type {Unpacked} from "./Unpacked.d.mts"
+import type {Event} from "#~src/export/Event.ts"
+import type {_EventsToNameUnion} from "./_EventsToNameUnion.ts"
+import type {Unpacked} from "./Unpacked.ts"
 
 export type _EventsToObject<Events extends Event[]> = {
 	[EventName in _EventsToNameUnion<Events>]: Extract<Unpacked<Events>, {

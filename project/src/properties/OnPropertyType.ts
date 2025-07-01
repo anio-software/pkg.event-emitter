@@ -1,7 +1,7 @@
-import type {Event} from "#~src/export/Event.d.mts"
-import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.d.mts"
-import type {_EventsToObject} from "#~src/_EventsToObject.d.mts"
-import type {EventListener} from "#~src/export/EventListener.d.mts"
+import type {Event} from "#~src/export/Event.ts"
+import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.ts"
+import type {_EventsToObject} from "#~src/_EventsToObject.ts"
+import type {EventListener} from "#~src/export/EventListener.ts"
 
 export type OnPropertyType<Events extends Event[]> = <
 	EventName extends _EventsToNameUnion<Events>

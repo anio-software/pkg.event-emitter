@@ -1,4 +1,4 @@
-import type {Event} from "./Event.d.mts"
+import type {Event} from "./Event.ts"
 
 export type DefineEvent<
 	Name extends string,

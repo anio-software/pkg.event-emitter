@@ -7,6 +7,6 @@
  * 
  * "a" | "b"
  */
-import type {Event} from "#~src/export/Event.d.mts"
+import type {Event} from "#~src/export/Event.ts"
 
 export type _EventsToNameUnion<Events extends Event[]> = Events[number]["eventName"]

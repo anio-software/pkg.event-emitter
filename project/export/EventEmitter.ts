@@ -1,5 +1,5 @@
-import type {Event} from "./Event.d.mts"
-import type {PropertyTypeOf} from "./PropertyTypeOf.d.mts"
+import type {Event} from "./Event.ts"
+import type {PropertyTypeOf} from "./PropertyTypeOf.ts"
 
 type PublicInterface<Events extends Event[]> = {
 	on: PropertyTypeOf<"on", Events>
