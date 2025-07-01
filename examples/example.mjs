@@ -1,10 +1,12 @@
 import {
 	createEventEmitterFactory
-} from "../dist/default/index.min.mjs"
-import {createContext} from "@fourtune/realm-js/v0/runtime"
+} from "../products/project/dist/default/index.min.mjs"
+import {defineContextOptions} from "@anio-software/enkore.js-runtime"
+import {getProject} from "@anio-software/enkore.target-js-none/project"
 
 const createEventEmitter = createEventEmitterFactory(
-	createContext({
+	defineContextOptions({
+		project: getProject(),
 		shouldLog() {
 			return true
 		}
