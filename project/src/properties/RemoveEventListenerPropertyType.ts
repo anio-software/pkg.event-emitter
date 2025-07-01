@@ -1,5 +1,5 @@
-import type {Event} from "#~src/export/Event.ts"
-import type {EventListener} from "#~src/export/EventListener.ts"
+import type {Event} from "#~export/Event.ts"
+import type {EventListener} from "#~export/EventListener.ts"
 
 export type RemoveEventListenerPropertyType<Events extends Event[]> = (
 	listener: EventListener

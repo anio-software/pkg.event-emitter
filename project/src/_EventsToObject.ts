@@ -22,7 +22,7 @@
  *     }
  * }
  */
-import type {Event} from "#~src/export/Event.ts"
+import type {Event} from "#~export/Event.ts"
 import type {_EventsToNameUnion} from "./_EventsToNameUnion.ts"
 import type {Unpacked} from "./Unpacked.ts"
 

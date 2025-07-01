@@ -1,9 +1,9 @@
 import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
-import type {Event} from "#~src/export/Event.ts"
+import type {Event} from "#~export/Event.ts"
 import type {_EventsToNameTuple} from "#~src/_EventsToNameTuple.ts"
 import type {_EventsToNameUnion} from "#~src/_EventsToNameUnion.ts"
-import type {EventEmitter} from "#~src/export/EventEmitter.ts"
-import type {EventListener} from "#~src/export/EventListener.ts"
+import type {EventEmitter} from "#~export/EventEmitter.ts"
+import type {EventListener} from "#~export/EventListener.ts"
 
 type EventHandler = (
 	data: object,
